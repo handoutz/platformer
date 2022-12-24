@@ -106,7 +106,7 @@ namespace PlatformerGame.Engine
 
                         OnFrame(upd);
                         Level.OnFrame(upd);
-                        Thread.Sleep(100);
+                        Thread.Sleep(10);
                     }
                 }
             }

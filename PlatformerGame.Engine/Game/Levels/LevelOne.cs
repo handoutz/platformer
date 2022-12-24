@@ -21,11 +21,20 @@ namespace PlatformerGame.Engine.Game.Levels
 
         public override void OnFrame(EngineStateUpdate state)
         {
+            
             UpdatePlayerLocation();
         }
 
         public void UpdatePlayerLocation()
         {
+            if (_playerY < 0 || _playerY >= Grid.Height)
+            {
+                _playerY = _lastPlayerY;
+            }
+            if (_playerX < 0 || _playerX >= Grid.Width)
+            {
+                _playerX = _lastPlayerX;
+            }
             if (_playerX != _lastPlayerX || _playerY != _lastPlayerY)
             {
                 Grid.Squares[_lastPlayerX, _lastPlayerY].Color = Color.Orange;
