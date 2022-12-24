@@ -10,7 +10,7 @@ namespace PlatformerGame.Engine
     public class Engine
     {
         public Thread GameThread { get; set; }
-        public object Sync { get; set; }
+        public static object Sync { get; set; }
         public CancellationTokenSource CancellationTokenSource { get; set; }
         private volatile int _frameCt;
         public int FrameCount => _frameCt;
@@ -23,7 +23,7 @@ namespace PlatformerGame.Engine
 
         public Engine()
         {
-            Level = new LevelOne();
+            Level = new GravityLevel();
             GameThread = new Thread(new ThreadStart(GameLoop));
             Sync = new();
             CancellationTokenSource = new();
@@ -35,7 +35,8 @@ namespace PlatformerGame.Engine
             {
                 Edge = true,
                 Down = true,
-                Key = e.KeyData
+                Key = e.KeyData,
+                Frame = _frameCt
             };
             Keys.Push(ke);
             OnLogEvent($"KeyDown {ke}");
@@ -47,7 +48,8 @@ namespace PlatformerGame.Engine
             {
                 Edge = true,
                 Down = false,
-                Key = e.KeyData
+                Key = e.KeyData,
+                Frame = _frameCt
             };
             Keys.Push(ke);
             OnLogEvent($"KeyUp {ke}");

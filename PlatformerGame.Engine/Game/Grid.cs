@@ -30,5 +30,10 @@ namespace PlatformerGame.Engine.Game
                 }
             }
         }
+        public GridSquare this[int x, int y]
+        {
+            get => Squares[x, y];
+            set => Squares[x, y] = value;
+        }
     }
 }

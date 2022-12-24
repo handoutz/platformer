@@ -9,6 +9,7 @@ namespace PlatformerGame.Engine
 {
     public class KeyEvent
     {
+        public int Frame { get; set; }
         public bool Edge { get; set; }
         public bool Down { get; set; }
         public Keys Key { get; set; }
