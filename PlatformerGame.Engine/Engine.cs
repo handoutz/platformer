@@ -97,9 +97,11 @@ namespace PlatformerGame.Engine
                         {
                             ElapsedMilliseconds = sw.ElapsedMilliseconds,
                             FrameNumber = _frameCt,
-                            Bitmap = GetBitmap()
+                            Bitmap = GetBitmap(),
+                            Level=Level
                         };
 
+                        Level.OnFrame(upd);
                         //process key events
                         while (Keys.TryPop(out var keyEvent))
                         {
@@ -107,14 +109,13 @@ namespace PlatformerGame.Engine
                         }
 
                         OnFrame(upd);
-                        Level.OnFrame(upd);
                         Thread.Sleep(10);
                     }
                 }
             }
             catch (Exception e)
             {
-
+                MessageBox.Show(e.ToString());
             }
         }
 

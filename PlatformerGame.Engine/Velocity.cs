@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PlatformerGame.Engine.Game;
 using PlatformerGame.Engine.Game.Actors;
 
 namespace PlatformerGame.Engine
@@ -27,13 +28,18 @@ namespace PlatformerGame.Engine
         }
 
         //apply the velocity to the actor based on how many frames are left
-        public void Apply(IActor actor, int currentFrameNumber)
+        public void Apply(IActor actor, EngineStateUpdate update)
         {
+            var currentFrameNumber = update.FrameNumber;
             if (currentFrameNumber >= StartFrameNumber && 
                 currentFrameNumber < StartFrameNumber + NumFramesUntilEnd)
             {
                 actor.X += DeltaX;
-                actor.Y += DeltaY;
+                //check if actor.Y+DeltaY is Ground
+                if (update.Level.Grid[actor.X, actor.Y - DeltaY].Pathing != Pathing.Ground)
+                {
+                    actor.Y = actor.Y - DeltaY;
+                }
             }
         }
 

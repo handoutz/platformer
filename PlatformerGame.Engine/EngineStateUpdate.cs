@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PlatformerGame.Engine.Game;
 
 namespace PlatformerGame.Engine
 {
@@ -12,5 +13,6 @@ namespace PlatformerGame.Engine
         public int FrameNumber { get; set; }
         public long ElapsedMilliseconds { get; set; }
         public Bitmap Bitmap { get; set; }
+        public Level Level { get; set; }
     }
 }

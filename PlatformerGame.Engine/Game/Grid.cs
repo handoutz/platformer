@@ -32,7 +32,12 @@ namespace PlatformerGame.Engine.Game
         }
         public GridSquare this[int x, int y]
         {
-            get => Squares[x, y];
+            get
+            {
+                if (x >= Width || x < 0 || y >= Height || y <= 0)
+                    return Squares[0, 0];
+                return Squares[x, y];
+            }
             set => Squares[x, y] = value;
         }
     }

@@ -29,10 +29,13 @@ namespace PlatformerGame.Engine.Game.Levels
             _player = new PlayerActor();
             Grid = new Grid(128, 64);
             //set ground level to 60
-            for (int i = 0; i < Grid.Width; i++)
+            for (int y = 60; y < Grid.Height; y++)
             {
-                Grid.Squares[i, 60].Pathing = Pathing.Ground;
-                Grid.Squares[i, 60].Color= Color.Brown;
+                for (int i = 0; i < Grid.Width; i++)
+                {
+                    Grid.Squares[i, y].Pathing = Pathing.Ground;
+                    Grid.Squares[i, y].Color = Color.Brown;
+                }
             }
         }
 
@@ -46,22 +49,12 @@ namespace PlatformerGame.Engine.Game.Levels
         {
             if (_playerY < 0 || _playerY >= Grid.Height)
             {
-                _playerY = _lastPlayerY;
+                _playerY = _lastPlayerY + 1;
             }
 
             if (_playerX < 0 || _playerX >= Grid.Width)
             {
-                _playerX = _lastPlayerX;
-            }
-
-            //apply gravity
-            if (Grid.Squares[_playerX, _playerY + 1].Pathing == Pathing.Ground)
-            {
-                _playerY = _lastPlayerY;
-            }
-            else
-            {
-                _playerY++;
+                _playerX = _lastPlayerX + 1;
             }
 
             if (_playerX != _lastPlayerX || _playerY != _lastPlayerY)
@@ -76,7 +69,6 @@ namespace PlatformerGame.Engine.Game.Levels
         public override void OnProcessKey(KeyEvent keyEvent)
         {
             _player.OnProcessKey(keyEvent);
-            
             UpdatePlayerLocation();
         }
     }
