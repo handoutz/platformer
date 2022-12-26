@@ -12,7 +12,7 @@ namespace PlatformerGame.Engine.Game.Actors
         public int X { get; set; }
         public int Y { get; set; }
         public Color Color { get; set; }
-        public Velocity CurrentVelocity { get; set; } = new(0,-1,0,1000000000);
+        public Velocity CurrentVelocity { get; set; } = new(0,-5,0,1000000000);
 
         public void OnFrame(EngineStateUpdate state)
         {
@@ -33,11 +33,11 @@ namespace PlatformerGame.Engine.Game.Actors
             }
             if (keyEvent.Down && keyEvent.IsUp())
             {
-                CurrentVelocity.DeltaY += 5;
+                Y--;
             }
             if (keyEvent.Down && keyEvent.IsDown())
             {
-                CurrentVelocity.DeltaY -= 5;
+                Y++;
             }
         }
 

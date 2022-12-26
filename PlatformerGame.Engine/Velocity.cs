@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,13 +9,13 @@ using PlatformerGame.Engine.Game.Actors;
 
 namespace PlatformerGame.Engine
 {
-    public class Velocity
+    public class Velocity : IVelocity
     {
         public int DeltaX { get; set; }
         public int DeltaY { get; set; }
         public int StartFrameNumber { get; set; }
         public int NumFramesUntilEnd { get; set; }
-
+        private List<Impulse> Impulses { get; set; } = new();
         public Velocity()
         {
             
@@ -30,6 +31,20 @@ namespace PlatformerGame.Engine
         //apply the velocity to the actor based on how many frames are left
         public void Apply(IActor actor, EngineStateUpdate update)
         {
+            var toRemove = new List<Impulse>();
+            foreach (var imp in Impulses)
+            {
+                if (imp.CanRemove(update.FrameNumber))
+                    toRemove.Add(imp);
+                
+            }
+
+            foreach (var removed in toRemove)
+            {
+                Impulses.Remove(removed);
+            }
+
+
             var currentFrameNumber = update.FrameNumber;
             if (currentFrameNumber >= StartFrameNumber && 
                 currentFrameNumber < StartFrameNumber + NumFramesUntilEnd)
@@ -41,6 +56,11 @@ namespace PlatformerGame.Engine
                     actor.Y = actor.Y - DeltaY;
                 }
             }
+        }
+
+        public void ApplyImpulse(Impulse imp)
+        {
+            Impulses.Add(imp);
         }
 
         public override string ToString()

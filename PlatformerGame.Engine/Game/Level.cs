@@ -11,5 +11,15 @@ namespace PlatformerGame.Engine.Game
         public Grid Grid { get; set; }
         public abstract void OnFrame(EngineStateUpdate state);
         public abstract void OnProcessKey(KeyEvent keyEvent);
+
+        public T GetGridExtra<T>(int x, int y)
+        {
+            return (T)Grid.Squares[x, y].Extra;
+        }
+
+        public void SetGridExtra(int x, int y, object o)
+        {
+            Grid[x, y].Extra = o;
+        }
     }
 }

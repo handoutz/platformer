@@ -23,7 +23,7 @@ namespace PlatformerGame.Engine
 
         public Engine()
         {
-            Level = new GravityLevel();
+            Level = new ActorLevel();
             GameThread = new Thread(new ThreadStart(GameLoop));
             Sync = new();
             CancellationTokenSource = new();
@@ -115,7 +115,7 @@ namespace PlatformerGame.Engine
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                OnLogEvent($"fucked: {e}");
             }
         }
 

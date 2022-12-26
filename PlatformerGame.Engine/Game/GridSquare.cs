@@ -18,6 +18,8 @@ namespace PlatformerGame.Engine.Game
         public int Y { get; set; }
         public Color Color { get; set; }
         public Pathing Pathing { get; set; }
+        public object Extra { get; set; }
+
         public GridSquare(int x, int y)
         {
             X = x;
