@@ -24,7 +24,7 @@ namespace PlatformerGame.Engine.Game.Levels
             set => _player.X = value;
         }
         private int _lastPlayerX = 0, _lastPlayerY = 0;
-        public GravityLevel()
+        public GravityLevel(Engine e):base(e)
         {
             _player = new PlayerActor();
             Grid = new Grid(128, 64);

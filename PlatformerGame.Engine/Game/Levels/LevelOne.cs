@@ -14,7 +14,7 @@ namespace PlatformerGame.Engine.Game.Levels
 
         private int _lastPlayerX = 0;
         private int _lastPlayerY = 0;
-        public LevelOne()
+        public LevelOne(Engine e) : base(e)
         {
             Grid = new Grid(128, 64);
         }

@@ -24,4 +24,9 @@ public class Impulse
     {
         return frame >= StartFrame + NumFrames;
     }
+
+    public override string ToString()
+    {
+        return $"Impulse: {X}, {Y}, {StartFrame}, {NumFrames}";
+    }
 }

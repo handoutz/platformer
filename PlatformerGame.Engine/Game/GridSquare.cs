@@ -10,7 +10,8 @@ namespace PlatformerGame.Engine.Game
     public enum Pathing
     {
         Freespace,
-        Ground
+        Ground,
+        Actor
     }
     public class GridSquare
     {

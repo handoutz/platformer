@@ -3,12 +3,15 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using PlatformerGame.Engine.Game;
+using PlatformerGame.Engine.Game.Actors;
 using PlatformerGame.Engine.Game.Levels;
 
 namespace PlatformerGame.Engine
 {
-    public class Engine
+    public class Engine : IAcceptFrames
     {
+        public static Engine Instance { get; set; }
+        public List<IActor> Actors { get; set; } = new();
         public Thread GameThread { get; set; }
         public static object Sync { get; set; }
         public CancellationTokenSource CancellationTokenSource { get; set; }
@@ -23,7 +26,9 @@ namespace PlatformerGame.Engine
 
         public Engine()
         {
-            Level = new ActorLevel();
+            Instance = this;
+            Actors = new List<IActor>() { new PlayerActor() };
+            Level = new ActorLevel(this);
             GameThread = new Thread(new ThreadStart(GameLoop));
             Sync = new();
             CancellationTokenSource = new();
@@ -68,7 +73,7 @@ namespace PlatformerGame.Engine
         public Bitmap GetBitmap()
         {
             const int sz = 8;
-            var bm = new Bitmap(Level.Grid.Width*sz, Level.Grid.Height*sz);
+            var bm = new Bitmap(Level.Grid.Width * sz, Level.Grid.Height * sz);
             using var g = Graphics.FromImage(bm);
             for (int x = 0; x < Level.Grid.Width; x++)
             {
@@ -98,7 +103,7 @@ namespace PlatformerGame.Engine
                             ElapsedMilliseconds = sw.ElapsedMilliseconds,
                             FrameNumber = _frameCt,
                             Bitmap = GetBitmap(),
-                            Level=Level
+                            Level = Level
                         };
 
                         Level.OnFrame(upd);
@@ -119,12 +124,12 @@ namespace PlatformerGame.Engine
             }
         }
 
-        protected virtual void OnFrame(EngineStateUpdate obj)
+        public virtual void OnFrame(EngineStateUpdate obj)
         {
             Frame?.Invoke(obj);
         }
 
-        protected virtual void OnLogEvent(string obj)
+        public virtual void OnLogEvent(string obj)
         {
             LogEvent?.Invoke(obj);
         }

@@ -5,20 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PlatformerGame.Engine.Game.Actors;
+using PlatformerGame.Engine.Physics;
 using static System.Windows.Forms.AxHost;
 
 namespace PlatformerGame.Engine.Game.Levels
 {
     public class ActorLevel : Level
     {
-        private List<IActor> _actors;
-        
-        public ActorLevel()
+        public Physics2d Physics { get; set; }
+
+        public ActorLevel(Engine e) : base(e)
         {
-            _actors = new()
-            {
-                new PlayerActor()
-            };
+            Physics = new Physics2d(e,this);
             Grid = new Grid(128, 64);
             //set ground level to 60
             for (int y = 60; y < Grid.Height; y++)
@@ -33,7 +31,12 @@ namespace PlatformerGame.Engine.Game.Levels
 
         public override void OnFrame(EngineStateUpdate state)
         {
-            _actors.ForEach(a => a.OnFrame(state));
+            _actors.ForEach(a => { Grid[a.X, a.Y].Color = Color.Blue; });
+            Physics.OnFrame(state);
+            _actors.ForEach(a =>
+            {
+                a.OnFrame(state);
+            });
             UpdatePlayerLocation();
         }
 
@@ -47,6 +50,7 @@ namespace PlatformerGame.Engine.Game.Levels
         }
         public override void OnProcessKey(KeyEvent keyEvent)
         {
+            _actors.ForEach(a => { Grid[a.X, a.Y].Color = Color.Blue; });
             _actors.ForEach(a => a.OnProcessKey(keyEvent));
             UpdatePlayerLocation();
         }
