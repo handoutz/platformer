@@ -23,8 +23,8 @@ namespace PlatformerGame
                 Dock = DockStyle.Fill
             });
             Engine.LogEvent += Engine_LogEvent;
-            KeyDown += GameDisplay_KeyDown;
-            KeyUp += GameDisplay_KeyUp;
+            /*KeyDown += GameDisplay_KeyDown;
+            KeyUp += GameDisplay_KeyUp;*/
             KeyPreview = true;
         }
 

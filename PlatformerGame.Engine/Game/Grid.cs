@@ -25,7 +25,7 @@ namespace PlatformerGame.Engine.Game
                 {
                     Squares[x, y] = new GridSquare(x, y)
                     {
-                        Color = y > 5 ? Color.Blue : Color.Red
+                        Color = Color.Blue
                     };
                 }
             }

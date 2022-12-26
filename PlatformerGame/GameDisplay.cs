@@ -44,7 +44,7 @@ namespace PlatformerGame
             //force a redraw
             Invalidate();
         }
-        protected override void OnKeyDown(KeyEventArgs e)
+        /*protected override void OnKeyDown(KeyEventArgs e)
         {
             _engine.KeyDown(e);
             base.OnKeyDown(e);
@@ -54,7 +54,7 @@ namespace PlatformerGame
         {
             _engine.KeyUp(e);
             base.OnKeyUp(e);
-        }
+        }*/
         private void GameDisplay_Load(object sender, EventArgs e)
         {
 

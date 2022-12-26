@@ -23,7 +23,7 @@ namespace PlatformerGame.Engine.Game.Actors
 
         public void OnProcessKey(KeyEvent keyEvent)
         {
-            if (keyEvent.Down && keyEvent.IsLeft())
+            if ((keyEvent.Down && keyEvent.IsLeft()))
             {
                 CurrentVelocity.ApplyImpulse(new Impulse(-1, 0, 0, 2));
             }
@@ -33,7 +33,7 @@ namespace PlatformerGame.Engine.Game.Actors
             }
             if (keyEvent.Down && keyEvent.IsUp())
             {
-                CurrentVelocity.ApplyImpulse(new Impulse(0, -3, 0, 5));
+                CurrentVelocity.ApplyImpulse(new Impulse(0, -1, 0, 5));
             }
             if (keyEvent.Down && keyEvent.IsDown())
             {

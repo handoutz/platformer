@@ -45,6 +45,21 @@ namespace PlatformerGame.Engine.Game.Levels
                     }
                 }
             }
+            //put a border of Ground around the grid
+            for (int i = 0; i < Grid.Width; i++)
+            {
+                Grid.Squares[i, 0].Pathing = Pathing.Ground;
+                Grid.Squares[i, 0].Color = Color.Brown;
+                Grid.Squares[i, Grid.Height - 1].Pathing = Pathing.Ground;
+                Grid.Squares[i, Grid.Height - 1].Color = Color.Brown;
+            }
+            for (int i = 0; i < Grid.Height; i++)
+            {
+                Grid.Squares[0, i].Pathing = Pathing.Ground;
+                Grid.Squares[0, i].Color = Color.Brown;
+                Grid.Squares[Grid.Width-1, i].Pathing = Pathing.Ground;
+                Grid.Squares[Grid.Width - 1, i].Color = Color.Brown;
+            }
         }
 
         public override void OnFrame(EngineStateUpdate state)

@@ -12,7 +12,7 @@ namespace PlatformerGame
         {
             if (frm.InvokeRequired)
             {
-                frm.Invoke(act);
+                frm.BeginInvoke(act);
             }
             else
             {

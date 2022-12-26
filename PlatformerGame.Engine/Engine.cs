@@ -44,7 +44,7 @@ namespace PlatformerGame.Engine
                 Frame = _frameCt
             };
             Keys.Push(ke);
-            OnLogEvent($"KeyDown {ke}");
+            //OnLogEvent($"KeyDown {ke}");
         }
 
         public void KeyUp(KeyEventArgs e)
@@ -57,7 +57,7 @@ namespace PlatformerGame.Engine
                 Frame = _frameCt
             };
             Keys.Push(ke);
-            OnLogEvent($"KeyUp {ke}");
+            //OnLogEvent($"KeyUp {ke}");
         }
 
         public void Start()
@@ -69,7 +69,7 @@ namespace PlatformerGame.Engine
         {
             CancellationTokenSource.Cancel();
         }
-
+            
         public Bitmap GetBitmap()
         {
             const int sz = 16;
@@ -87,6 +87,44 @@ namespace PlatformerGame.Engine
             return bm;
         }
 
+        private void ProcessKeys()
+        {
+            if (KeyEvent.IsLeftPressed())
+            {
+                KeyDown(new KeyEventArgs(System.Windows.Forms.Keys.A));
+            }
+            else
+            {
+                KeyUp(new KeyEventArgs(System.Windows.Forms.Keys.A));
+            }
+
+            if (KeyEvent.IsRightPressed())
+            {
+                KeyDown(new KeyEventArgs(System.Windows.Forms.Keys.D));
+            }
+            else
+            {
+                KeyUp(new KeyEventArgs(System.Windows.Forms.Keys.D));
+            }
+
+            if (KeyEvent.IsUpPressed())
+            {
+                KeyDown(new KeyEventArgs(System.Windows.Forms.Keys.W));
+            }
+            else
+            {
+                KeyUp(new KeyEventArgs(System.Windows.Forms.Keys.W));
+            }
+
+            if (KeyEvent.IsDownPressed())
+            {
+                KeyDown(new KeyEventArgs(System.Windows.Forms.Keys.S));
+            }
+            else
+            {
+                KeyUp(new KeyEventArgs(System.Windows.Forms.Keys.S));
+            }
+        }
         private void GameLoop()
         {
             try
@@ -106,6 +144,7 @@ namespace PlatformerGame.Engine
                             Level = Level
                         };
 
+                        ProcessKeys();
                         Level.OnFrame(upd);
                         //process key events
                         while (Keys.TryPop(out var keyEvent))

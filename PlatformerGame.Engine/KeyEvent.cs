@@ -9,6 +9,23 @@ namespace PlatformerGame.Engine
 {
     public class KeyEvent
     {
+        public static bool IsLeftPressed()
+        {
+            return Natives.IsKeyDown(VirtualKeys.A);
+        }
+        public static bool IsRightPressed()
+        {
+            return Natives.IsKeyDown(VirtualKeys.D);
+        }
+        public static bool IsUpPressed()
+        {
+            return Natives.IsKeyDown(VirtualKeys.W);
+        }
+        public static bool IsDownPressed()
+        {
+            return Natives.IsKeyDown(VirtualKeys.D);
+        }
+
         public int Frame { get; set; }
         public bool Edge { get; set; }
         public bool Down { get; set; }

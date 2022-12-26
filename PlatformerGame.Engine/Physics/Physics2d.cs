@@ -39,11 +39,16 @@ namespace PlatformerGame.Engine.Physics
                 var x = a.X;
                 var y = a.Y;
                 var v = a.CurrentVelocity;
-                if (v.Impulses.Count == 0 && IsActorInAir(a))
+                if (v.Impulses.Count == 0 || IsActorInAir(a))
                 {
                     v.ApplyImpulse(new Impulse(0, 1, 0, 1));
                 }
                 v.Apply(a, obj);
+                if (_level.Grid[a.X, a.Y].Pathing == Pathing.Ground)
+                {
+                    //bump actor right
+                    a.X++;
+                }
             });
         }
     }
