@@ -143,8 +143,8 @@ namespace PlatformerGame.Engine
                             Bitmap = GetBitmap(),
                             Level = Level
                         };
-
-                        ProcessKeys();
+                        if (_frameCt % 2 == 0)
+                            ProcessKeys();
                         Level.OnFrame(upd);
                         //process key events
                         while (Keys.TryPop(out var keyEvent))
