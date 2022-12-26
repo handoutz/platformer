@@ -42,9 +42,9 @@
             this.tslblFrame,
             this.tslblElapsed,
             this.tslblFps});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 634);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 1079);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1756, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1897, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -81,7 +81,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1756, 656);
+            this.ClientSize = new System.Drawing.Size(1897, 1101);
             this.Controls.Add(this.rtbLog);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";

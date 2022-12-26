@@ -59,6 +59,8 @@ namespace PlatformerGame
             this.Post(() =>
             {
                 rtbLog.AppendText($"{obj}\r\n");
+                rtbLog.SelectionStart = rtbLog.Text.Length;
+                rtbLog.ScrollToCaret();
             });
         }
 

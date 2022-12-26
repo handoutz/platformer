@@ -27,6 +27,24 @@ namespace PlatformerGame.Engine.Game.Levels
                     Grid.Squares[i, y].Color = Color.Brown;
                 }
             }
+
+            var rand = new Random();
+            //add some random platforms 
+            for (int i = 0; i < 10; i++)
+            {
+                int x = rand.Next(0, Grid.Width);
+                int y = rand.Next(0, Grid.Height);
+                int w = Math.Clamp(rand.Next(1, 10), 0, Grid.Width - x);
+                int h = Math.Clamp(rand.Next(1, 10), 0, Grid.Height - y);
+                for (int x1 = x; x1 < x + w; x1++)
+                {
+                    for (int y1 = y; y1 < y + h; y1++)
+                    {
+                        Grid.Squares[x1, y1].Pathing = Pathing.Ground;
+                        Grid.Squares[x1, y1].Color = Color.Brown;
+                    }
+                }
+            }
         }
 
         public override void OnFrame(EngineStateUpdate state)

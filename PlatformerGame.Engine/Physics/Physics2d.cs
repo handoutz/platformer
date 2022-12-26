@@ -19,6 +19,19 @@ namespace PlatformerGame.Engine.Physics
             _level = level;
         }
 
+        public bool IsActorInAir(IActor actor)
+        {
+            var grid = _level.Grid;
+            var x = actor.X;
+            var y = actor.Y;
+            var below = grid[x, y + 1];
+            if (below.Pathing == Pathing.Ground)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void OnFrame(EngineStateUpdate obj)
         {
             _actors.ForEach(a =>
@@ -26,8 +39,7 @@ namespace PlatformerGame.Engine.Physics
                 var x = a.X;
                 var y = a.Y;
                 var v = a.CurrentVelocity;
-                var dy = v.DeltaY;
-                if (v.Impulses.Count == 0)
+                if (v.Impulses.Count == 0 && IsActorInAir(a))
                 {
                     v.ApplyImpulse(new Impulse(0, 1, 0, 1));
                 }

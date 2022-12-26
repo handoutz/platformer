@@ -72,7 +72,7 @@ namespace PlatformerGame.Engine
 
         public Bitmap GetBitmap()
         {
-            const int sz = 8;
+            const int sz = 16;
             var bm = new Bitmap(Level.Grid.Width * sz, Level.Grid.Height * sz);
             using var g = Graphics.FromImage(bm);
             for (int x = 0; x < Level.Grid.Width; x++)

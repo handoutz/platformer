@@ -42,19 +42,23 @@ namespace PlatformerGame.Engine
                 dx += imp.X;
                 dy += imp.Y;
             }
+            
 
             foreach (var removed in toRemove)
             {
-                Engine.Instance.OnLogEvent($"Removing: {removed}");
+                //Engine.Instance.OnLogEvent($"Removing: {removed}");
                 Impulses.Remove(removed);
             }
 
+            if (dx != 0 && dy != 0)
+                Engine.Instance.OnLogEvent($"Calculated velocity: {dx}, {dy}");
+
             CurrentFrame = update.FrameNumber;
             
-            actor.X += dx;
             //check if actor.Y+DeltaY is Ground
-            if (update.Level.Grid[actor.X, actor.Y + dy].Pathing != Pathing.Ground)
+            if (update.Level.Grid[actor.X + dx, actor.Y + dy].Pathing != Pathing.Ground)
             {
+                actor.X += dx;
                 actor.Y = actor.Y + dy;
             }
 
@@ -66,7 +70,7 @@ namespace PlatformerGame.Engine
         {
             imp.StartFrame = CurrentFrame;
             Impulses.Add(imp);
-            Engine.Instance.OnLogEvent($"Adding: {imp}");
+            //Engine.Instance.OnLogEvent($"Adding: {imp}");
         }
 
         public override string ToString()
