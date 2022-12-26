@@ -57,7 +57,7 @@ namespace PlatformerGame.Engine
                 Impulses.Remove(removed);
             }
 
-            if (dx != 0 && dy != 0)
+            if (dx != 0 || dy != 1)
                 Engine.Instance.OnLogEvent($"Calculated velocity: {dx}, {dy}");
 
             CurrentFrame = update.FrameNumber;
@@ -70,7 +70,7 @@ namespace PlatformerGame.Engine
                 }
                 if (!CanPathTo(level, actor.X, actor.Y+dy))
                 {
-                    dx = 0;
+                    dy = 0;
                 }
             }
             //check if actor.Y+DeltaY is Ground

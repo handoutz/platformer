@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PlatformerGame.Engine.Physics;
 
 namespace PlatformerGame.Engine.Game.Actors
 {
@@ -33,7 +34,10 @@ namespace PlatformerGame.Engine.Game.Actors
             }
             if (keyEvent.Down && keyEvent.IsUp())
             {
-                CurrentVelocity.ApplyImpulse(new Impulse(0, -1, 0, 5));
+                if (!Physics2d.Instance.IsActorInAir(this))
+                {
+                    CurrentVelocity.ApplyImpulse(new Impulse(0, -3, 0, 5));
+                }
             }
             if (keyEvent.Down && keyEvent.IsDown())
             {

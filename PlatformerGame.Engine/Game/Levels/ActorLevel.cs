@@ -60,6 +60,9 @@ namespace PlatformerGame.Engine.Game.Levels
                 Grid.Squares[Grid.Width-1, i].Pathing = Pathing.Ground;
                 Grid.Squares[Grid.Width - 1, i].Color = Color.Brown;
             }
+
+            //le.WriteAllText("C:\\tmp\\grid.txt", Grid.DumpToAscii());
+            Grid = Grid.LoadFromAscii(File.ReadAllText(@"C:\tmp\grid.txt"));
         }
 
         public override void OnFrame(EngineStateUpdate state)

@@ -10,11 +10,13 @@ namespace PlatformerGame.Engine.Physics
 {
     public class Physics2d : IAcceptFrames
     {
+        public static Physics2d Instance { get; set; }
         private Engine _engine;
         private Level _level;
         private List<IActor> _actors => _engine.Actors;
         public Physics2d(Engine engine, Level level)
         {
+            Instance = this;
             _engine = engine;
             _level = level;
         }

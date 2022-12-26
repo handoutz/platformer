@@ -40,5 +40,37 @@ namespace PlatformerGame.Engine.Game
             }
             set => Squares[x, y] = value;
         }
+
+        public string DumpToAscii()
+        {
+            string result = "";
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    result += this[x, y].Pathing == Pathing.Ground ? "#" : " ";
+                }
+
+                result += "\r\n";
+            }
+
+            return result.Trim();
+        }
+
+        public static Grid LoadFromAscii(string ascii)
+        {
+            var lines = ascii.Split("\r\n");
+            var grid = new Grid(lines[0].Length, lines.Length);
+            for (int y = 0; y < grid.Height; y++)
+            {
+                for (int x = 0; x < grid.Width; x++)
+                {
+                    grid[x, y].Pathing = lines[y][x] == '#' ? Pathing.Ground : Pathing.Freespace;
+                    grid[x, y].Color = lines[y][x] == '#' ? Color.SaddleBrown: Color.Black;
+                }
+            }
+
+            return grid;
+        }
     }
 }
