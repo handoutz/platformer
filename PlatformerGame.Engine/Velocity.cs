@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -22,8 +23,9 @@ namespace PlatformerGame.Engine
 
         public Velocity()
         {
-            
+
         }
+
         public Velocity(int deltaX, int deltaY, int startFrameNumber, int numFramesUntilEnd)
         {
             DeltaX = deltaX;
@@ -32,9 +34,65 @@ namespace PlatformerGame.Engine
             NumFramesUntilEnd = numFramesUntilEnd;
         }
 
+        public static IEnumerable<Point> GetPointsOnLine(int x0, int y0, int x1, int y1)
+        {
+            bool steep = Math.Abs(y1 - y0) > Math.Abs(x1 - x0);
+            if (steep)
+            {
+                int t;
+                t = x0; // swap x0 and y0
+                x0 = y0;
+                y0 = t;
+                t = x1; // swap x1 and y1
+                x1 = y1;
+                y1 = t;
+            }
+
+            if (x0 > x1)
+            {
+                int t;
+                t = x0; // swap x0 and x1
+                x0 = x1;
+                x1 = t;
+                t = y0; // swap y0 and y1
+                y0 = y1;
+                y1 = t;
+            }
+
+            int dx = x1 - x0;
+            int dy = Math.Abs(y1 - y0);
+            int error = dx / 2;
+            int ystep = (y0 < y1) ? 1 : -1;
+            int y = y0;
+            for (int x = x0; x <= x1; x++)
+            {
+                yield return new Point((steep ? y : x), (steep ? x : y));
+                error = error - dy;
+                if (error < 0)
+                {
+                    y += ystep;
+                    error += dx;
+                }
+            }
+
+            yield break;
+        }
+
         public bool CanPathTo(Level l, int x, int y)
         {
             return l.Grid[x, y].Pathing != Pathing.Ground;
+        }
+
+        public Point? FirstNonPathingPointBetween(Level l, IActor src, int x, int y)
+        {
+            var pts = GetPointsOnLine(src.X, src.Y, x, y).ToList();
+            foreach (var pt in pts)
+            {
+                if (!CanPathTo(l, pt.X, pt.Y))
+                    return pt;
+            }
+
+            return null;
         }
 
         //apply the velocity to the actor based on how many frames are left
@@ -49,7 +107,7 @@ namespace PlatformerGame.Engine
                 dx += imp.X;
                 dy += imp.Y;
             }
-            
+
 
             foreach (var removed in toRemove)
             {
@@ -62,17 +120,23 @@ namespace PlatformerGame.Engine
 
             CurrentFrame = update.FrameNumber;
             var level = update.Level;
-            if (!CanPathTo(level, actor.X + dx, actor.Y+dy))
+            var pts = GetPointsOnLine(actor.X, actor.Y, actor.X, actor.Y).ToList();
+            var fp = pts.Skip(1).FirstOrDefault(pt => level.Grid[pt.X, pt.Y].Pathing != Pathing.Ground);
+            if (!CanPathTo(level, fp.X, fp.Y))
             {
-                if (!CanPathTo(level, actor.X + dx, actor.Y))
-                {
-                    dx = 0;
-                }
-                if (!CanPathTo(level, actor.X, actor.Y+dy))
-                {
-                    dy = 0;
-                }
+                dx = dy = 0;
             }
+
+            if (!CanPathTo(level, actor.X + dx, actor.Y))
+            {
+                dx = 0;
+            }
+
+            if (!CanPathTo(level, actor.X, actor.Y + dy))
+            {
+                dy = 0;
+            }
+
             //check if actor.Y+DeltaY is Ground
             if (update.Level.Grid[actor.X + dx, actor.Y + dy].Pathing != Pathing.Ground)
             {

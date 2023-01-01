@@ -72,7 +72,7 @@ namespace PlatformerGame.Engine
             
         public Bitmap GetBitmap()
         {
-            const int sz = 16;
+            const int sz = GameConstants.PIXEL_SIZE;
             var bm = new Bitmap(Level.Grid.Width * sz, Level.Grid.Height * sz);
             using var g = Graphics.FromImage(bm);
             for (int x = 0; x < Level.Grid.Width; x++)
@@ -153,7 +153,7 @@ namespace PlatformerGame.Engine
                         }
 
                         OnFrame(upd);
-                        Thread.Sleep(10);
+                        Thread.Sleep(20);
                     }
                 }
             }

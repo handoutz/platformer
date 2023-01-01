@@ -67,7 +67,11 @@ namespace PlatformerGame.Engine.Game.Levels
 
         public override void OnFrame(EngineStateUpdate state)
         {
-            _actors.ForEach(a => { Grid[a.X, a.Y].Color = Color.Blue; });
+            _actors.ForEach(a =>
+            {
+                Grid[a.X, a.Y].Color = Color.Blue;
+                Grid[a.X, a.Y].Pathing = Grid[a.X, a.Y].Pathing == Pathing.Actor? Pathing.Freespace: Grid[a.X, a.Y].Pathing;
+            });
             Physics.OnFrame(state);
             _actors.ForEach(a =>
             {
@@ -81,7 +85,7 @@ namespace PlatformerGame.Engine.Game.Levels
             //Grid.Squares[_playerX, _playerY].Color = Color.Green;
             _actors.ForEach(act =>
             {
-                Grid[act.X, act.Y].Color = Color.Green;
+                Grid[act.X, act.Y].Pathing = Pathing.Actor;
             });
         }
         public override void OnProcessKey(KeyEvent keyEvent)

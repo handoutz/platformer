@@ -70,10 +70,10 @@
             // rtbLog
             // 
             this.rtbLog.Enabled = false;
-            this.rtbLog.Location = new System.Drawing.Point(1351, 12);
+            this.rtbLog.Location = new System.Drawing.Point(0, 782);
             this.rtbLog.Name = "rtbLog";
             this.rtbLog.ReadOnly = true;
-            this.rtbLog.Size = new System.Drawing.Size(393, 606);
+            this.rtbLog.Size = new System.Drawing.Size(1324, 294);
             this.rtbLog.TabIndex = 1;
             this.rtbLog.Text = "";
             // 

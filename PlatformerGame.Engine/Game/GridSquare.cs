@@ -17,7 +17,23 @@ namespace PlatformerGame.Engine.Game
     {
         public int X { get; set; }
         public int Y { get; set; }
-        public Color Color { get; set; }
+        public Color Color {
+            get
+            {
+                switch (Pathing)
+                {
+                    case Pathing.Freespace:
+                        return Color.Black;
+                    case Pathing.Ground:
+                        return Color.SaddleBrown;
+                    case Pathing.Actor:
+                        return Color.Green;
+                    default:
+                        return Color.White;
+                }
+            }
+            set { }
+        }
         public Pathing Pathing { get; set; }
         public object Extra { get; set; }
 
