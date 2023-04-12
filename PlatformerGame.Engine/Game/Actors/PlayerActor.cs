@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PlatformerGame.Engine.Physics;
+using PlatformerGame.Engine.Scripting;
 
 namespace PlatformerGame.Engine.Game.Actors
 {
@@ -20,7 +21,14 @@ namespace PlatformerGame.Engine.Game.Actors
             //set Color to random
             Color = Color.Blue;
             //CurrentVelocity.Apply(this, state);
-            
+            var same = state.Engine.Actors.ActorsInSameSpotAs(this).Where(s=>s is StaticActor)
+                .ToList();
+            if (same.Count > 0)
+            {
+                var obj = state.Engine.ScriptManager.GetScript("objective") as ObjectiveScript;
+                obj.Count++;
+                state.Engine.Actors.RemoveActor(same.First());
+            }
         }
 
         public override void OnProcessKey(KeyEvent keyEvent)

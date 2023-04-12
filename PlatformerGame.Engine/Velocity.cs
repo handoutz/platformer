@@ -115,8 +115,8 @@ namespace PlatformerGame.Engine
                 Impulses.Remove(removed);
             }
 
-            if (dx != 0 || dy != 1)
-                Engine.Instance.OnLogEvent($"Calculated velocity: {dx}, {dy}");
+            /*if (dx != 0 || dy != 1)
+                Engine.Instance.OnLogEvent($"Calculated velocity: {dx}, {dy}");*/
 
             CurrentFrame = update.FrameNumber;
             var level = update.Level;

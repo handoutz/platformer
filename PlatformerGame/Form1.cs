@@ -17,12 +17,12 @@ namespace PlatformerGame
         {
             Engine = new();
             Engine.Frame += Engine_Frame;
+            Engine.LogEvent += Engine_LogEvent;
             Engine.Start();
             Controls.Add(new GameDisplay(Engine)
             {
                 Dock = DockStyle.Fill
             });
-            Engine.LogEvent += Engine_LogEvent;
             /*KeyDown += GameDisplay_KeyDown;
             KeyUp += GameDisplay_KeyUp;*/
             KeyPreview = true;

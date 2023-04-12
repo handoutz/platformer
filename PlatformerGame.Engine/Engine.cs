@@ -6,6 +6,7 @@ using PlatformerGame.Engine.Game;
 using PlatformerGame.Engine.Game.Actors;
 using PlatformerGame.Engine.Game.Levels;
 using PlatformerGame.Engine.Interface;
+using PlatformerGame.Engine.Scripting;
 
 namespace PlatformerGame.Engine
 {
@@ -13,6 +14,8 @@ namespace PlatformerGame.Engine
     {
         public static Engine Instance { get; set; }
         public ActorList Actors { get; set; } = new();
+        public ScriptManager ScriptManager { get; set; } = new();
+        public List<Script> Scripts => ScriptManager.Scripts;
         public Thread GameThread { get; set; }
         public static object Sync { get; set; }
         public CancellationTokenSource CancellationTokenSource { get; set; }
@@ -30,7 +33,10 @@ namespace PlatformerGame.Engine
         public Engine()
         {
             Instance = this;
-            Actors = new List<IActor>() { new PlayerActor() };
+            Actors = new();
+            Actors.Add(new PlayerActor());
+
+            Scripts.Add(new ObjectiveScript());
             Level = new ActorLevel(this);
             GameThread = new Thread(new ThreadStart(GameLoop));
             Sync = new();
@@ -65,6 +71,10 @@ namespace PlatformerGame.Engine
 
         public void Start()
         {
+            foreach (var s in Scripts)
+            {
+                s.OnLoad(this);
+            }
             GameThread.Start();
         }
 
@@ -72,7 +82,7 @@ namespace PlatformerGame.Engine
         {
             CancellationTokenSource.Cancel();
         }
-            
+
         public Bitmap GetBitmap(EngineStateUpdate update)
         {
             const int sz = GameConstants.PIXEL_SIZE;
@@ -165,8 +175,11 @@ namespace PlatformerGame.Engine
                         {
                             Level.OnProcessKey(keyEvent);
                         }
-
+                        Scripts.ForEach(s => s.BeforeFrame(upd));
                         OnFrame(upd);
+                        Scripts.ForEach(s => s.OnFrame(upd));
+                        Scripts.ForEach(s => s.AfterFrame(upd));
+                        Actors.AfterFrame(upd);
                         Thread.Sleep(30);
                     }
                 }
