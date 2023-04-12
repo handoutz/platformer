@@ -162,7 +162,7 @@ namespace PlatformerGame.Engine
                         }
 
                         OnFrame(upd);
-                        Thread.Sleep(20);
+                        Thread.Sleep(30);
                     }
                 }
             }

@@ -8,17 +8,13 @@ using System.Windows.Forms;
 
 namespace PlatformerGame.Engine.Game.Actors
 {
-    public class NpcActor : IActor
+    public class NpcActor : BaseActor
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public Color Color { get; set; }
-        public Velocity CurrentVelocity { get; set; } = new(0, -1, 0, 1000000000);
-        public void OnFrame(EngineStateUpdate state)
+        public override void OnFrame(EngineStateUpdate state)
         {
             if (state.FrameNumber % 50 == 0)
             {
-                CurrentVelocity.ApplyImpulse(new Impulse(0, -2, 0, 5));
+                Jump(2, 5);
             }
 
             var player = state.Engine.Actors.FirstOrDefault(a => a is PlayerActor);
@@ -26,24 +22,20 @@ namespace PlatformerGame.Engine.Game.Actors
             {
                 CurrentVelocity.Left(1, 1);
             }
-            else if(player.X > X)
+            else if (player.X > X)
             {
                 CurrentVelocity.Right(1, 1);
             }
-            else
-            {
-                
-            }
         }
 
-        public void OnProcessKey(KeyEvent keyEvent)
+        public override void OnProcessKey(KeyEvent keyEvent)
         {
-            
+
         }
 
-        public void SetVelocity(Velocity v)
+        public override void SetVelocity(Velocity v)
         {
-            
+
         }
     }
 }
