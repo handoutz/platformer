@@ -14,5 +14,6 @@ namespace PlatformerGame.Engine
         public long ElapsedMilliseconds { get; set; }
         public Bitmap Bitmap { get; set; }
         public Level Level { get; set; }
+        public Engine Engine { get; set; }
     }
 }

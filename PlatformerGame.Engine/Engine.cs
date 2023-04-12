@@ -149,7 +149,8 @@ namespace PlatformerGame.Engine
                             ElapsedMilliseconds = sw.ElapsedMilliseconds,
                             FrameNumber = _frameCt,
                             Bitmap = GetBitmap(),
-                            Level = Level
+                            Level = Level,
+                            Engine = this
                         };
                         if (_frameCt % 2 == 0)
                             ProcessKeys();

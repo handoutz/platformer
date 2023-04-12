@@ -77,6 +77,14 @@ namespace PlatformerGame
                 tslblElapsed.Text = obj.ElapsedMilliseconds.ToString();
                 tslblFrame.Text = obj.FrameNumber.ToString();
                 tslblFps.Text = (obj.FrameNumber / (obj.ElapsedMilliseconds / 1000.0)).ToString();
+                if (obj.FrameNumber % 10 == 0)
+                {
+                    lbActors.Items.Clear();
+                    foreach (var actor in Engine.Actors)
+                    {
+                        lbActors.Items.Add($"{actor.GetType().Name}: ({actor.X}, {actor.Y})");
+                    }
+                }
             });
         }
 

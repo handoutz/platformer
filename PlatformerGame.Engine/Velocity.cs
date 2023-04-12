@@ -155,6 +155,17 @@ namespace PlatformerGame.Engine
             //Engine.Instance.OnLogEvent($"Adding: {imp}");
         }
 
+        public void Left(int frames, int ct)
+        {
+            var fr = new Impulse(-ct, 0, CurrentFrame, frames);
+            Impulses.Add(fr);
+        }
+        public void Right(int frames, int ct)
+        {
+            var fr = new Impulse(ct, 0, CurrentFrame, frames);
+            Impulses.Add(fr);
+        }
+
         public override string ToString()
         {
             return $"Velocity: {DeltaX}, {DeltaY}, {StartFrameNumber}, {NumFramesUntilEnd}";

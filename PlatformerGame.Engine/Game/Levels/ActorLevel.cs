@@ -35,7 +35,6 @@ namespace PlatformerGame.Engine.Game.Levels
             _actors.ForEach(a =>
             {
                 Grid[a.X, a.Y].Color = a.Color;//Color.Blue;
-                GameEngine.OnLogEvent($"{a.GetType().Name}-{a.X} {a.Y}");
                 Grid[a.X, a.Y].Pathing = Grid[a.X, a.Y].Pathing == Pathing.Actor ? Pathing.Freespace : Grid[a.X, a.Y].Pathing;
             });
             Physics.OnFrame(state);

@@ -33,6 +33,7 @@
             this.tslblElapsed = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslblFps = new System.Windows.Forms.ToolStripStatusLabel();
             this.rtbLog = new System.Windows.Forms.RichTextBox();
+            this.lbActors = new System.Windows.Forms.ListBox();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -77,11 +78,21 @@
             this.rtbLog.TabIndex = 1;
             this.rtbLog.Text = "";
             // 
+            // lbActors
+            // 
+            this.lbActors.FormattingEnabled = true;
+            this.lbActors.ItemHeight = 15;
+            this.lbActors.Location = new System.Drawing.Point(1337, 781);
+            this.lbActors.Name = "lbActors";
+            this.lbActors.Size = new System.Drawing.Size(201, 274);
+            this.lbActors.TabIndex = 2;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1897, 1101);
+            this.Controls.Add(this.lbActors);
             this.Controls.Add(this.rtbLog);
             this.Controls.Add(this.statusStrip1);
             this.Name = "Form1";
@@ -101,5 +112,6 @@
         private ToolStripStatusLabel tslblElapsed;
         private ToolStripStatusLabel tslblFps;
         private RichTextBox rtbLog;
+        private ListBox lbActors;
     }
 }
