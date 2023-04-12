@@ -15,7 +15,6 @@ namespace PlatformerGame.Engine.Game.Actors
         Velocity CurrentVelocity { get; set; }
         void OnFrame(EngineStateUpdate state);
         void OnProcessKey(KeyEvent keyEvent);
-
         void SetVelocity(Velocity v);
     }
 }

@@ -46,13 +46,13 @@ namespace PlatformerGame
         }
         /*protected override void OnKeyDown(KeyEventArgs e)
         {
-            _engine.KeyDown(e);
+            GameEngine.KeyDown(e);
             base.OnKeyDown(e);
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
-            _engine.KeyUp(e);
+            GameEngine.KeyUp(e);
             base.OnKeyUp(e);
         }*/
         private void GameDisplay_Load(object sender, EventArgs e)

@@ -9,15 +9,15 @@ namespace PlatformerGame.Engine.Game
 {
     public abstract class Level
     {
-        protected List<IActor> _actors => _engine.Actors;
-        protected Engine _engine;
+        protected List<IActor> _actors => GameEngine.Actors;
+        public Engine GameEngine;
         public Grid Grid { get; set; }
         public abstract void OnFrame(EngineStateUpdate state);
         public abstract void OnProcessKey(KeyEvent keyEvent);
 
         protected Level(Engine e)
         {
-            _engine = e;
+            GameEngine = e;
         }
         public T GetGridExtra<T>(int x, int y)
         {

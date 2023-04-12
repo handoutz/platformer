@@ -84,6 +84,14 @@ namespace PlatformerGame.Engine
                 }
             }
 
+            foreach (var actor in Actors)
+            {
+                var x = actor.X;
+                var y = actor.Y;
+                var color = actor.Color;
+                g.FillRectangle(new SolidBrush(color), x * sz, y * sz, sz, sz);
+            }
+
             return bm;
         }
 
