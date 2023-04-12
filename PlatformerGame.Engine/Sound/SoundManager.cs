@@ -16,6 +16,7 @@ namespace PlatformerGame.Engine.Sound
 
         public void OnStartSound(SoundEventArgs obj)
         {
+            EngineLog.Trace($"Starting sound {obj.SoundName}" + (obj.Loop ? " looping":""));
             StartSound?.Invoke(obj);
         }
     }

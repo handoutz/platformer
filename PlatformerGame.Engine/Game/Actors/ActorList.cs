@@ -24,7 +24,7 @@ namespace PlatformerGame.Engine.Game.Actors
         {
             while (_removeQueue.TryDequeue(out var a))
             {
-                _engine.OnLogEvent($"Removing actor {a.GetType().Name}");
+                EngineLog.Info($"Removing actor {a.GetType().Name}");
                 Remove(a);
             }
 
@@ -32,7 +32,7 @@ namespace PlatformerGame.Engine.Game.Actors
 
         public void RemoveActor(IActor act)
         {
-            _engine.OnLogEvent($"Queueing: remove actor {act.GetType().Name}");
+            EngineLog.Trace($"Enqueued actor removal {act.GetType().Name}");
             _removeQueue.Enqueue(act);
         }
     }

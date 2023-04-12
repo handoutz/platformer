@@ -71,6 +71,7 @@
             // rtbLog
             // 
             this.rtbLog.Enabled = false;
+            this.rtbLog.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.rtbLog.Location = new System.Drawing.Point(0, 782);
             this.rtbLog.Name = "rtbLog";
             this.rtbLog.ReadOnly = true;
