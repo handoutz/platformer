@@ -75,6 +75,10 @@ namespace PlatformerGame.Engine.Game
                             grid[x, y].Pathing = Pathing.LevelChange;
                             grid[x, y].Color = Color.Aquamarine;
                             break;
+                        case '+':
+                            grid[x, y].Pathing = Pathing.Objective;
+                            grid[x, y].Color = Color.Yellow;
+                            break;
                         default:
                             grid[x, y].Pathing = Pathing.Freespace;
                             grid[x, y].Color = Color.Black;

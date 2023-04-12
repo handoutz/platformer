@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,21 +9,20 @@ using PlatformerGame.Engine.Physics;
 
 namespace PlatformerGame.Engine.Game.Actors
 {
-    public class PlayerActor : IActor
+    public class PlayerActor : BaseActor
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public Color Color { get; set; }
-        public Velocity CurrentVelocity { get; set; } = new(0,-1,0,1000000000);
-
-        public void OnFrame(EngineStateUpdate state)
+        public PlayerActor()
+        {
+            CurrentVelocity = new(0, -1, 0, 1000000000);
+        }
+        public override void OnFrame(EngineStateUpdate state)
         {
             //set Color to random
             Color = Color.Blue;
             //CurrentVelocity.Apply(this, state);
         }
 
-        public void OnProcessKey(KeyEvent keyEvent)
+        public override void OnProcessKey(KeyEvent keyEvent)
         {
             if ((keyEvent.Down && keyEvent.IsLeft()))
             {
@@ -45,7 +45,7 @@ namespace PlatformerGame.Engine.Game.Actors
             }
         }
 
-        public void SetVelocity(Velocity v)
+        public override void SetVelocity(Velocity v)
         {
             CurrentVelocity = v;
         }

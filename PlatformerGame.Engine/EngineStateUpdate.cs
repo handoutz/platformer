@@ -15,5 +15,6 @@ namespace PlatformerGame.Engine
         public Bitmap Bitmap { get; set; }
         public Level Level { get; set; }
         public Engine Engine { get; set; }
+        public int Size { get; set; }
     }
 }

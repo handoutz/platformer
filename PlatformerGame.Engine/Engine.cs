@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using PlatformerGame.Engine.Game;
 using PlatformerGame.Engine.Game.Actors;
 using PlatformerGame.Engine.Game.Levels;
+using PlatformerGame.Engine.Interface;
 
 namespace PlatformerGame.Engine
 {
@@ -21,6 +22,8 @@ namespace PlatformerGame.Engine
         public event Action<EngineStateUpdate> Frame;
         public Level Level { get; set; }
         public ConcurrentStack<KeyEvent> Keys { get; set; } = new();
+
+        public HeadsUpDisplay Hud { get; set; } = new();
 
         public event Action<string> LogEvent;
 
@@ -70,7 +73,7 @@ namespace PlatformerGame.Engine
             CancellationTokenSource.Cancel();
         }
             
-        public Bitmap GetBitmap()
+        public Bitmap GetBitmap(EngineStateUpdate update)
         {
             const int sz = GameConstants.PIXEL_SIZE;
             var bm = new Bitmap(Level.Grid.Width * sz, Level.Grid.Height * sz);
@@ -92,6 +95,8 @@ namespace PlatformerGame.Engine
                 g.FillRectangle(new SolidBrush(color), x * sz, y * sz, sz, sz);
             }
 
+            update.Size = sz;
+            Hud.Draw(bm, update, g);
             return bm;
         }
 
@@ -148,10 +153,10 @@ namespace PlatformerGame.Engine
                         {
                             ElapsedMilliseconds = sw.ElapsedMilliseconds,
                             FrameNumber = _frameCt,
-                            Bitmap = GetBitmap(),
                             Level = Level,
                             Engine = this
                         };
+                        upd.Bitmap = GetBitmap(upd);
                         if (_frameCt % 2 == 0)
                             ProcessKeys();
                         Level.OnFrame(upd);
