@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PlatformerGame.Engine.Physics;
 using PlatformerGame.Engine.Scripting;
+using PlatformerGame.Engine.Sound;
 
 namespace PlatformerGame.Engine.Game.Actors
 {
@@ -28,6 +29,10 @@ namespace PlatformerGame.Engine.Game.Actors
                 var obj = state.Engine.ScriptManager.GetScript("objective") as ObjectiveScript;
                 obj.Count++;
                 state.Engine.Actors.RemoveActor(same.First());
+                state.Engine.Sound.OnStartSound(new SoundEventArgs()
+                {
+                    SoundName = @"C:\Users\innat\source\repos\PlatformerGame\PlatformerGame\Sounds\grenade.wav"
+                });
             }
         }
 

@@ -7,6 +7,7 @@ using PlatformerGame.Engine.Game.Actors;
 using PlatformerGame.Engine.Game.Levels;
 using PlatformerGame.Engine.Interface;
 using PlatformerGame.Engine.Scripting;
+using PlatformerGame.Engine.Sound;
 
 namespace PlatformerGame.Engine
 {
@@ -15,6 +16,7 @@ namespace PlatformerGame.Engine
         public static Engine Instance { get; set; }
         public ActorList Actors { get; set; } = new();
         public ScriptManager ScriptManager { get; set; } = new();
+        public SoundManager Sound { get; set; } = new();
         public List<Script> Scripts => ScriptManager.Scripts;
         public Thread GameThread { get; set; }
         public static object Sync { get; set; }

@@ -1,5 +1,6 @@
 using PlatformerGame.Engine;
 using System.ComponentModel;
+using System.Media;
 
 namespace PlatformerGame
 {
@@ -18,6 +19,7 @@ namespace PlatformerGame
             Engine = new();
             Engine.Frame += Engine_Frame;
             Engine.LogEvent += Engine_LogEvent;
+            Engine.Sound.StartSound += Sound_StartSound;
             Engine.Start();
             Controls.Add(new GameDisplay(Engine)
             {
@@ -26,6 +28,22 @@ namespace PlatformerGame
             /*KeyDown += GameDisplay_KeyDown;
             KeyUp += GameDisplay_KeyUp;*/
             KeyPreview = true;
+        }
+
+        private void Sound_StartSound(Engine.Sound.SoundEventArgs obj)
+        {
+            this.Post(() =>
+            {
+                var snd = new SoundPlayer(obj.SoundName);
+                if (obj.Loop)
+                {
+                    snd.PlayLooping();
+                }
+                else
+                {
+                    snd.Play();
+                }
+            });
         }
 
         private void GameDisplay_KeyUp(object? sender, KeyEventArgs e)
@@ -71,7 +89,7 @@ namespace PlatformerGame
         }
 
         private void Engine_Frame(Engine.EngineStateUpdate obj)
-        { 
+        {
             this.Post(() =>
             {
                 tslblElapsed.Text = obj.ElapsedMilliseconds.ToString();
