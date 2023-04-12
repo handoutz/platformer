@@ -65,8 +65,21 @@ namespace PlatformerGame.Engine.Game
             {
                 for (int x = 0; x < grid.Width; x++)
                 {
-                    grid[x, y].Pathing = lines[y][x] == '#' ? Pathing.Ground : Pathing.Freespace;
-                    grid[x, y].Color = lines[y][x] == '#' ? Color.SaddleBrown: Color.Black;
+                    switch (lines[y][x])
+                    {
+                        case '#':
+                            grid[x, y].Pathing = Pathing.Ground;
+                            grid[x, y].Color = Color.SaddleBrown;
+                            break;
+                        case '*':
+                            grid[x, y].Pathing = Pathing.LevelChange;
+                            grid[x, y].Color = Color.Aquamarine;
+                            break;
+                        default:
+                            grid[x, y].Pathing = Pathing.Freespace;
+                            grid[x, y].Color = Color.Black;
+                            break;
+                    }
                 }
             }
 

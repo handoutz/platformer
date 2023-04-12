@@ -11,7 +11,9 @@ namespace PlatformerGame.Engine.Game
     {
         Freespace,
         Ground,
-        Actor
+        Actor,
+        LevelChange,
+        Winner
     }
     public class GridSquare
     {
@@ -28,6 +30,8 @@ namespace PlatformerGame.Engine.Game
                         return Color.SaddleBrown;
                     case Pathing.Actor:
                         return Color.Green;
+                    case Pathing.LevelChange:
+                        return Color.Aquamarine;
                     default:
                         return Color.White;
                 }

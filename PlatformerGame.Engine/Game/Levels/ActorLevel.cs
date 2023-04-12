@@ -16,7 +16,7 @@ namespace PlatformerGame.Engine.Game.Levels
 
         public ActorLevel(Engine e) : base(e)
         {
-            Physics = new Physics2d(e,this);
+            Physics = new Physics2d(e, this);
             Grid = new Grid(128, 64);
             //set ground level to 60
             for (int y = 60; y < Grid.Height; y++)
@@ -57,7 +57,7 @@ namespace PlatformerGame.Engine.Game.Levels
             {
                 Grid.Squares[0, i].Pathing = Pathing.Ground;
                 Grid.Squares[0, i].Color = Color.Brown;
-                Grid.Squares[Grid.Width-1, i].Pathing = Pathing.Ground;
+                Grid.Squares[Grid.Width - 1, i].Pathing = Pathing.Ground;
                 Grid.Squares[Grid.Width - 1, i].Color = Color.Brown;
             }
 
@@ -70,7 +70,7 @@ namespace PlatformerGame.Engine.Game.Levels
             _actors.ForEach(a =>
             {
                 Grid[a.X, a.Y].Color = Color.Blue;
-                Grid[a.X, a.Y].Pathing = Grid[a.X, a.Y].Pathing == Pathing.Actor? Pathing.Freespace: Grid[a.X, a.Y].Pathing;
+                Grid[a.X, a.Y].Pathing = Grid[a.X, a.Y].Pathing == Pathing.Actor ? Pathing.Freespace : Grid[a.X, a.Y].Pathing;
             });
             Physics.OnFrame(state);
             _actors.ForEach(a =>
@@ -85,7 +85,17 @@ namespace PlatformerGame.Engine.Game.Levels
             //Grid.Squares[_playerX, _playerY].Color = Color.Green;
             _actors.ForEach(act =>
             {
-                Grid[act.X, act.Y].Pathing = Pathing.Actor;
+                if (act is PlayerActor)
+                {
+                    if (Grid[act.X, act.Y].Pathing == Pathing.LevelChange)
+                    {
+                        Grid = Grid.LoadFromAscii(File.ReadAllText(@"C:\tmp\grid.txt"));
+                    }
+                    else
+                    {
+                        Grid[act.X, act.Y].Pathing = Pathing.Actor;
+                    }
+                }
             });
         }
         public override void OnProcessKey(KeyEvent keyEvent)
