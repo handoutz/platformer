@@ -12,7 +12,7 @@ namespace PlatformerGame.Engine
     public class Engine : IAcceptFrames
     {
         public static Engine Instance { get; set; }
-        public List<IActor> Actors { get; set; } = new();
+        public ActorList Actors { get; set; } = new();
         public Thread GameThread { get; set; }
         public static object Sync { get; set; }
         public CancellationTokenSource CancellationTokenSource { get; set; }

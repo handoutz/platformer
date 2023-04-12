@@ -28,6 +28,19 @@ namespace PlatformerGame.Engine.Game.Levels
                 Color = Color.Purple,
                 CurrentVelocity = new(0, 0, 0, 1000000000)
             });
+            Grid.ForEachSquare(gs =>
+            {
+                if (gs.Pathing == Pathing.Objective)
+                {
+                    _actors.Add(new StaticActor()
+                    {
+                        X = gs.X,
+                        Y = gs.Y,
+                        Color = Color.Gold,
+                        CurrentVelocity = new(0, 0, 0, 0)
+                    });
+                }
+            });
         }
 
         public override void OnFrame(EngineStateUpdate state)

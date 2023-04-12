@@ -20,6 +20,7 @@ namespace PlatformerGame.Engine.Game.Actors
             //set Color to random
             Color = Color.Blue;
             //CurrentVelocity.Apply(this, state);
+            
         }
 
         public override void OnProcessKey(KeyEvent keyEvent)

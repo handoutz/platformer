@@ -57,6 +57,19 @@ namespace PlatformerGame.Engine.Game
             return result.Trim();
         }
 
+        public void ForEachSquare(Action<GridSquare> each)
+        {
+            var grid = this;
+            for (int y = 0; y < grid.Height; y++)
+            {
+                for (int x = 0; x < grid.Width; x++)
+                {
+                    each(grid[x, y]);
+                }
+            }
+            
+        }
+
         public static Grid LoadFromAscii(string ascii)
         {
             var lines = ascii.Split("\r\n");
