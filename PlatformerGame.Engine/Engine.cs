@@ -17,7 +17,7 @@ namespace PlatformerGame.Engine
     {
         public static Engine Instance { get; set; }
         public ActorList Actors { get; set; } = new();
-        public ScriptManager ScriptManager { get; set; } = new();
+        public ScriptManager ScriptManager { get; set; } = ScriptManager.Instance;
         public SoundManager Sound { get; set; } = new();
         public List<Script> Scripts => ScriptManager.Scripts;
 
@@ -43,7 +43,6 @@ namespace PlatformerGame.Engine
             Actors = new();
             Actors.Add(new PlayerActor());
 
-            Scripts.Add(new ObjectiveScript());
             Level = new ActorLevel(this);
             GameThread = new Thread(new ThreadStart(GameLoop));
             Sync = new();
@@ -89,18 +88,37 @@ namespace PlatformerGame.Engine
         {
             CancellationTokenSource.Cancel();
         }
-
+        /// <summary>
+        /// The beef. This generates the playing field bitmap
+        /// </summary>
+        /// <param name="update">Frame update</param>
+        /// <returns>A bitmap</returns>
         public Bitmap GetBitmap(EngineStateUpdate update)
         {
             const int sz = GameConstants.PIXEL_SIZE;
             var bm = new Bitmap(Level.Grid.Width * sz, Level.Grid.Height * sz);
             using var g = Graphics.FromImage(bm);
+            var brushes = new Dictionary<Color, SolidBrush>();
+
+            SolidBrush GetBrush(Color c)
+            {
+                if (brushes.ContainsKey(c))
+                {
+                    return brushes[c];
+                }
+                else
+                {
+                    var b = new SolidBrush(c);
+                    brushes.Add(c, b);
+                    return b;
+                }
+            }
+
             for (int x = 0; x < Level.Grid.Width; x++)
             {
                 for (int y = 0; y < Level.Grid.Height; y++)
                 {
-                    //bm.SetPixel(x, y, Level.Grid.Squares[x, y].Color);
-                    g.FillRectangle(new SolidBrush(Level.Grid.Squares[x, y].Color), x * sz, y * sz, sz, sz);
+                    g.FillRectangle(GetBrush(Level.Grid.Squares[x, y].Color), x * sz, y * sz, sz, sz);
                 }
             }
 
@@ -109,7 +127,7 @@ namespace PlatformerGame.Engine
                 var x = actor.X;
                 var y = actor.Y;
                 var color = actor.Color;
-                g.FillRectangle(new SolidBrush(color), x * sz, y * sz, sz, sz);
+                g.FillRectangle(GetBrush(color), x * sz, y * sz, sz, sz);
             }
 
             update.Size = sz;

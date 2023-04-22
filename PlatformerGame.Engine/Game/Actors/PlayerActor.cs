@@ -13,9 +13,11 @@ namespace PlatformerGame.Engine.Game.Actors
 {
     public class PlayerActor : BaseActor
     {
+        private Script _objectiveScript;
         public PlayerActor()
         {
             CurrentVelocity = new(0, -1, 0, 1000000000);
+            AddScript(_objectiveScript = new ObjectiveScript());
         }
         public override void OnFrame(EngineStateUpdate state)
         {
@@ -26,7 +28,7 @@ namespace PlatformerGame.Engine.Game.Actors
                 .ToList();
             if (same.Count > 0)
             {
-                var obj = state.Engine.ScriptManager.GetScript("objective") as ObjectiveScript;
+                var obj = _objectiveScript as ObjectiveScript;
                 obj.Count++;
                 state.Engine.Actors.RemoveActor(same.First());
                 state.Engine.Sound.OnStartSound(new SoundEventArgs()

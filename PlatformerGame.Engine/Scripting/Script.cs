@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PlatformerGame.Engine.Scripting
 {
-    public abstract class Script
+    public abstract class Script : IAcceptFrames
     {
         public string Identifier { get; set; }
 
@@ -24,7 +24,7 @@ namespace PlatformerGame.Engine.Scripting
         public abstract void OnFrame(EngineStateUpdate state);
         public virtual void AfterFrame(EngineStateUpdate state)
         {
-            
+
         }
     }
 }

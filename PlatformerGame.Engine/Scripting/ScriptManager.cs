@@ -8,6 +8,8 @@ namespace PlatformerGame.Engine.Scripting
 {
     public class ScriptManager
     {
+        private static ScriptManager? _instance;
+        public static ScriptManager Instance => _instance ??= new ScriptManager();
         public List<Script> Scripts { get; set; } = new();
         
         public Script? GetScript(string name)

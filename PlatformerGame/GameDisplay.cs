@@ -16,7 +16,7 @@ namespace PlatformerGame
     {
         private readonly Engine.Engine _engine;
 
-        public GameDisplay()
+        protected GameDisplay()
         {
             InitializeComponent();
         }
@@ -32,7 +32,7 @@ namespace PlatformerGame
         {
             if (_bm != null)
             {
-                var d2dbmp = Device.CreateBitmapFromGDIBitmap(_bm);
+                using var d2dbmp = Device.CreateBitmapFromGDIBitmap(_bm);
                 g.DrawBitmap(_bm, 0, 0);
             }
         }
@@ -43,16 +43,5 @@ namespace PlatformerGame
             //force a redraw
             Invalidate();
         }
-        /*protected override void OnKeyDown(KeyEventArgs e)
-        {
-            GameEngine.KeyDown(e);
-            base.OnKeyDown(e);
-        }
-
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            GameEngine.KeyUp(e);
-            base.OnKeyUp(e);
-        }*/
     }
 }
