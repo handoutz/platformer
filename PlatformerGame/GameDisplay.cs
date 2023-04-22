@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using unvell.D2DLib;
+using unvell.D2DLib.WinForm;
 
 namespace PlatformerGame
 {
-    public partial class GameDisplay : UserControl
+    public partial class GameDisplay : D2DControl
     {
         private readonly Engine.Engine _engine;
 
@@ -26,16 +28,13 @@ namespace PlatformerGame
             _engine = engine;
             _engine.Frame += _engine_Frame;
         }
-
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnRender(D2DGraphics g)
         {
             if (_bm != null)
             {
-                var g = e.Graphics;
-                g.DrawImage(_bm, 0, 0);
+                var d2dbmp = Device.CreateBitmapFromGDIBitmap(_bm);
+                g.DrawBitmap(_bm, 0, 0);
             }
-
-            base.OnPaint(e);
         }
 
         private void _engine_Frame(Engine.EngineStateUpdate obj)
@@ -55,9 +54,5 @@ namespace PlatformerGame
             GameEngine.KeyUp(e);
             base.OnKeyUp(e);
         }*/
-        private void GameDisplay_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

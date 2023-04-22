@@ -9,6 +9,7 @@ using PlatformerGame.Engine.Interface;
 using PlatformerGame.Engine.Scripting;
 using PlatformerGame.Engine.Sound;
 using PlatformerGame.Engine.Sprites;
+using unvell.D2DLib;
 
 namespace PlatformerGame.Engine
 {
@@ -32,6 +33,7 @@ namespace PlatformerGame.Engine
         public ConcurrentStack<KeyEvent> Keys { get; set; } = new();
 
         public HeadsUpDisplay Hud { get; set; } = new();
+        public D2DDevice Device { get; set; }
 
         public event Action<string> LogEvent;
 

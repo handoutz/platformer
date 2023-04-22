@@ -32,11 +32,8 @@
             // 
             // GameDisplay
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.DoubleBuffered = true;
             this.Name = "GameDisplay";
-            this.Load += new System.EventHandler(this.GameDisplay_Load);
             this.ResumeLayout(false);
 
         }

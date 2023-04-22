@@ -20,11 +20,13 @@ namespace PlatformerGame
             Engine.Frame += Engine_Frame;
             Engine.LogEvent += Engine_LogEvent;
             Engine.Sound.StartSound += Sound_StartSound;
-            Engine.Start();
-            Controls.Add(new GameDisplay(Engine)
+            var gd = new GameDisplay(Engine)
             {
                 Dock = DockStyle.Fill
-            });
+            };
+            Controls.Add(gd);
+            Engine.Device = gd.Device;
+            Engine.Start();
             /*KeyDown += GameDisplay_KeyDown;
             KeyUp += GameDisplay_KeyUp;*/
             KeyPreview = true;
